@@ -61,9 +61,7 @@ function getAddOrSubtract(romanNumerals, index) {
     if (index === romanNumerals.length - 1) {
         return add;
     }
-    const windows = toWindows(romanNumerals, 2);
-    const window = windows[index];
-    const romanNumeral = window.join('');
+    const romanNumeral = romanNumerals[index] + romanNumerals[index + 1];
     const shouldSubtract = SUBTRACTION_PATTERNS.has(romanNumeral);
     return shouldSubtract ? subtract : add;
 }
@@ -74,34 +72,6 @@ function add(a, b) {
 
 function subtract(a, b) {
     return a - b;
-}
-
-/**
- * Converts an array into an array of windows.
- * 
- * @example
- * toWindows([1, 2, 3, 4], 2)
- * [[1, 2], [2, 3], [3, 4]]
- * 
- * @example
- * toWindows([1], 2)
- * []
- * 
- * @see {@link https://stackoverflow.com/a/59322890}
- *
- * @param {Array} array Array to create windows from.
- * @param {number} windowSize Size of window.
- * @returns Array of windows.
- */
-function toWindows(array, windowSize) { 
-    return array.reduce((windows, _, index) => {
-        if (index + windowSize > array.length) {
-            return windows;
-        }
-        return windows.concat(
-            [array.slice(index, index + windowSize)]
-        );
-    }, []);
 }
 
 module.exports = romanToInteger;
