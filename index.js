@@ -39,28 +39,29 @@ const SUBTRACTION_PATTERNS = new Set([
  * @returns {number} Integer
  */
 function romanToInteger(roman) {
-    const characters = Array.from(roman);
-    return characters.reduce((sum, romanNumeral, index) => {
-        const addOrSubtract = getAddOrSubtract(characters, index);
-        return addOrSubtract(sum, INTEGER_BY_ROMAN_NUMERAL[romanNumeral]);
+    const romanNumerals = Array.from(roman);
+    return romanNumerals.reduce((sum, romanNumeral, index) => {
+        const addOrSubtract = getAddOrSubtract(romanNumerals, index);
+        const integer = INTEGER_BY_ROMAN_NUMERAL[romanNumeral];
+        return addOrSubtract(sum, integer);
     }, 0);
 }
 
 /**
  * Get whether to add or subtract the integer value for a roman numeral.
  * 
- * @param {Array} characters Array of roman numeral characters.
+ * @param {Array} romanNumerals Array of roman numerals.
  * @param {number} index Index of roman numeral to determine whether
- *                       to add or subtract.
+ *                       to add or subtract it's integer value.
  * @returns {Function} Function to add or subtract two numbers.
  */
-function getAddOrSubtract(characters, index) {
-    // if there's only 1 character, or if it's last the character,
+function getAddOrSubtract(romanNumerals, index) {
+    // if there's only 1 roman numeral, or if it's the last roman numeral,
     // then add it's value.
-    if (characters.length <= 1 || index === characters.length - 1) {
+    if (romanNumerals.length <= 1 || index === romanNumerals.length - 1) {
         return add;
     }
-    const windows = toWindows(characters, 2);
+    const windows = toWindows(romanNumerals, 2);
     const window = windows[index];
     const romanNumeral = window.join('');
     const shouldSubtract = SUBTRACTION_PATTERNS.has(romanNumeral);
