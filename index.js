@@ -41,14 +41,14 @@ const SUBTRACTION_PATTERNS = new Set([
 function romanToInteger(roman) {
     const romanNumerals = Array.from(roman);
     return romanNumerals.reduce((sum, romanNumeral, index) => {
-        const addOrSubtract = getAddOrSubtract(romanNumerals, index);
+        const operation = getAddOrSubtract(romanNumerals, index);
         const integer = INTEGER_BY_ROMAN_NUMERAL[romanNumeral];
-        return addOrSubtract(sum, integer);
+        return operation(sum, integer);
     }, 0);
 }
 
 /**
- * Get whether to add or subtract the integer value for a roman numeral.
+ * Get operation to add or subtract the integer value for a roman numeral.
  * 
  * @param {Array} romanNumerals Array of roman numerals.
  * @param {number} index Index of roman numeral to determine whether
@@ -58,7 +58,7 @@ function romanToInteger(roman) {
 function getAddOrSubtract(romanNumerals, index) {
     // if there's only 1 roman numeral, or if it's the last roman numeral,
     // then add it's value.
-    if (romanNumerals.length <= 1 || index === romanNumerals.length - 1) {
+    if (index === romanNumerals.length - 1) {
         return add;
     }
     const windows = toWindows(romanNumerals, 2);
