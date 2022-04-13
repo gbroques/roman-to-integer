@@ -19,7 +19,7 @@
  * 2. X can be placed before L (50) and C (100) to make 40 and 90. 
  * 3. C can be placed before D (500) and M (1000) to make 400 and 900.
  */
-const SUBTRACTION_PATTERNS = new Set([
+const SUBTRACTIVE_PATTERNS = new Set([
     'IV',
     'IX',
     'XL',
@@ -56,13 +56,11 @@ function romanToInteger(roman) {
  * @returns {Function} Function to add or subtract two numbers.
  */
 function getAddOrSubtract(romanNumerals, index) {
-    // if there's only 1 roman numeral, or if it's the last roman numeral,
-    // then add it's value.
     if (index === romanNumerals.length - 1) {
         return add;
     }
-    const romanNumeral = romanNumerals[index] + romanNumerals[index + 1];
-    const shouldSubtract = SUBTRACTION_PATTERNS.has(romanNumeral);
+    const romanNumeralPair = romanNumerals[index] + romanNumerals[index + 1];
+    const shouldSubtract = SUBTRACTIVE_PATTERNS.has(romanNumeralPair);
     return shouldSubtract ? subtract : add;
 }
 
