@@ -13,8 +13,12 @@ describe('romanToInteger', function () {
         {roman: 'VIII', integer: 8},
         {roman: 'IX', integer: 9},
         {roman: 'X', integer: 10},
+        {roman: 'XXXIX', integer: 39},
         {roman: 'LVIII', integer: 58},
-        {roman: 'MCMXCIV', integer: 1994}
+        {roman: 'CCXLVI', integer: 246},
+        {roman: 'MIX', integer: 1009},
+        {roman: 'MCMXCIV', integer: 1994},
+        {roman: 'MMCDXXI', integer: 2421}
     ];
      
     tests.forEach(({roman, integer}) => {
